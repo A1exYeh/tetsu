@@ -1,0 +1,7 @@
+.streakIcon {
+    background-image: url('../../assets/fire-icon.svg');
+    background-position: center;
+    background-repeat: none;
+    background-size: cover;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.661);
+}
