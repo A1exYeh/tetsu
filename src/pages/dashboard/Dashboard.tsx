@@ -23,7 +23,7 @@ export default function Dashboard() {
         </div>
 
         <div className='flex h-full w-[90%] flex-col items-center justify-start'>
-          <div className='flex h-16 w-full flex-row items-center justify-between bg-transparent text-white'>
+          <div className='flex h-16 w-full flex-row items-center justify-between rounded-xl bg-transparent text-white hover:bg-zinc-900 active:bg-zinc-900'>
             <i className='flex items-center justify-center'>
               <img src={Dumbbell2} alt='' className='h-8 w-8' />
             </i>
@@ -33,9 +33,6 @@ export default function Dashboard() {
             </div>
             <div className='flex h-full items-center justify-center font-bold'>
               100 lbs
-            </div>
-            <div className='flex h-fit items-center justify-center rounded-full bg-mint'>
-              <button>-D</button>
             </div>
           </div>
         </div>
