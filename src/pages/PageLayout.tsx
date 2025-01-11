@@ -1,18 +1,20 @@
 import '../index.css';
 import { Outlet } from 'react-router-dom';
 
-export default function PageLayout () {
-    return (
-        <>
-        
-        <div className=" w-full max-w-screen-sm max-h-screen h-full flex flex-col justify-start items-center bg-black">
-            <header className='bg-red-500 flex justify-center w-full'>HEADER</header>
-            <main className='w-full h-screen flex flex-col items-center justify-center'>
-                <Outlet />
-            </main>
-            <footer className='bg-red-500 flex justify-center w-full'>FOOTER</footer>
-        </div>
-        
-        </>
-    )
+export default function PageLayout() {
+  return (
+    <>
+      <div className='flex h-full max-h-screen w-full max-w-screen-sm flex-col items-center justify-start bg-black'>
+        <header className='flex w-full justify-center bg-red-500'>
+          HEADER
+        </header>
+        <main className='flex h-screen w-full flex-col items-center justify-center'>
+          <Outlet />
+        </main>
+        <footer className='flex w-full justify-center bg-red-500'>
+          FOOTER
+        </footer>
+      </div>
+    </>
+  );
 }
