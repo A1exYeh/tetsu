@@ -2,7 +2,7 @@ import '../index.css';
 import { useState, FormEvent } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import useAuth from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 import Logo from '../assets/dumbbell-icon.svg';
 
 const LoginForm = () => {
@@ -26,11 +26,13 @@ const LoginForm = () => {
 
     const signInAttempt = await signIn(username, password);
 
-    if (signInAttempt) {
-      console.log(signInAttempt);
-      navigate('dashboard');
+    if (signInAttempt.data.user) {
+      console.log('LOGGED IN SUCCESS' + signInAttempt);
+      navigate('/dashboard');
     } else {
-      navigate('/');
+      console.log('LOGGED IN FAIL' + signInAttempt);
+      setUsername('');
+      setPassword('');
     }
   };
 
@@ -47,6 +49,7 @@ const LoginForm = () => {
             type='email'
             placeholder=''
             className='rounded-md px-1 text-black outline-none focus:shadow-lg focus:shadow-black focus:outline-mint'
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <label htmlFor='password'>Password</label>
@@ -54,6 +57,7 @@ const LoginForm = () => {
             type='password'
             placeholder=''
             className='rounded-md px-1 text-black outline-none focus:shadow-lg focus:shadow-black focus:outline-mint'
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button

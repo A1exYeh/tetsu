@@ -1,12 +1,12 @@
 import '../../index.css';
 import './dashboard.css';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import Dumbbell2 from '../../assets/dumbbell2-icon.svg';
 
 export default function Dashboard() {
   const [userDisplay, setUserDisplay] = useState(null);
-  const { getUser } = useAuth();
+  const { getUser, signOut } = useAuth();
 
   useEffect(() => {
     const getUsername = async () => {
@@ -15,7 +15,7 @@ export default function Dashboard() {
     };
 
     getUsername();
-  });
+  }, []);
 
   return (
     <>
@@ -32,7 +32,12 @@ export default function Dashboard() {
           </div>
           <div className='flex h-full w-3/5 flex-col items-center justify-center gap-4 rounded-xl font-bold'>
             Wed 17, August 2024
-            <button className='rounded-lg bg-mint p-2 text-sm'>Check-In</button>
+            <button
+              onClick={signOut}
+              className='rounded-lg bg-mint p-2 text-sm'
+            >
+              Check-In
+            </button>
           </div>
         </div>
 
