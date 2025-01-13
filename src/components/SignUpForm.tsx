@@ -6,9 +6,9 @@ import { useAuth } from '../hooks/useAuth';
 import { Link } from 'react-router';
 import Logo from '../assets/dumbbell-icon.svg';
 
-const LoginForm = () => {
+const SignUpForm = () => {
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { signUp } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passVisible, setPassVisible] = useState(false);
@@ -65,13 +65,13 @@ const LoginForm = () => {
     e.preventDefault();
     console.log(e);
 
-    const signInAttempt = await signIn(username, password);
+    const signUpAttempt = await signUp(username, password);
 
-    if (signInAttempt.data.user) {
-      console.log('LOGGED IN SUCCESS' + signInAttempt);
+    if (signUpAttempt.data.user) {
+      console.log('SIGN UP SUCCESS' + signUpAttempt);
       navigate('/dashboard');
     } else {
-      console.log('LOGGED IN FAIL' + signInAttempt);
+      console.log('SIGN UP FAIL' + signUpAttempt);
       setUsername('');
       setPassword('');
     }
@@ -115,10 +115,10 @@ const LoginForm = () => {
             type='submit'
             className='mx-auto mt-4 flex items-center justify-center rounded-xl bg-mint px-2 py-1 text-black'
           >
-            Log In
+            Register
           </button>
           <p className='my-2 w-full text-center text-sm'>
-            <Link to='/signup'>Sign Up</Link>
+            <Link to='/login'>Log In</Link>
           </p>
         </form>
       </div>
@@ -126,4 +126,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

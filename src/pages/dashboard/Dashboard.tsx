@@ -3,6 +3,7 @@ import './dashboard.css';
 import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import Dumbbell2 from '../../assets/dumbbell2-icon.svg';
+import supabase from '../../lib/supabase';
 
 export default function Dashboard() {
   const [userDisplay, setUserDisplay] = useState(null);
@@ -14,6 +15,24 @@ export default function Dashboard() {
       setUserDisplay(user.data.user.email || 'dingus');
     };
 
+    const getExercises = async () => {
+      const user = await getUser();
+      const { data, error } = await supabase
+        .from('exercises')
+        .select('*')
+        .eq('user_id', user.data.user.id);
+
+      if (error) {
+        console.error('Error fetching exercises:', error);
+        return;
+      }
+
+      console.log('User exercises: ', data);
+      data.forEach((exercise) => {
+        console.log(exercise.name);
+      });
+    };
+    getExercises();
     getUsername();
   }, []);
 
