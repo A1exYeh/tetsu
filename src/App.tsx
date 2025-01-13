@@ -4,7 +4,7 @@ import SignUpForm from './components/SignUpForm';
 import PageLayout from './pages/PageLayout';
 import Dashboard from './pages/dashboard/Dashboard';
 import SessionProvider from './hooks/useAuth';
-import ProtectedRoute from './components/protectedROute';
+import ProtectedRoute from './components/protectedRoute';
 import AddExerciseForm from './components/AddExerciseForm';
 import './index.css';
 
