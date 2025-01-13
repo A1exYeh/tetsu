@@ -65,15 +65,22 @@ const LoginForm = () => {
     e.preventDefault();
     console.log(e);
 
-    const signInAttempt = await signIn(username, password);
+    try {
+      const signInAttempt = await signIn(username, password);
 
-    if (signInAttempt.data.user) {
-      console.log('LOGGED IN SUCCESS' + signInAttempt);
-      navigate('/dashboard');
-    } else {
-      console.log('LOGGED IN FAIL' + signInAttempt);
-      setUsername('');
-      setPassword('');
+      if (signInAttempt.data.user) {
+        console.log('LOGGED IN SUCCESS', signInAttempt);
+        navigate('/dashboard');
+      } else {
+        console.log('LOGGED IN FAIL', signInAttempt);
+
+        setUsername('');
+        setPassword('');
+        let error = signInAttempt.error.message;
+        throw error;
+      }
+    } catch (error) {
+      alert(error);
     }
   };
 

@@ -3,14 +3,27 @@ import './dashboard.css';
 import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import Dumbbell2 from '../../assets/dumbbell2-icon.svg';
 import supabase from '../../lib/supabase';
+import ExerciseCard from '../../components/ExerciseCard';
+import { ExerciseProps } from '../../components/ExerciseCard';
 
 export default function Dashboard() {
   const [userDisplay, setUserDisplay] = useState(null);
   const { getUser, signOut } = useAuth();
-
+  const [exercises, setExercises] = useState<ExerciseProps[]>([]);
   const navigate = useNavigate();
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const hours = date.getHours().toString().padStart(2, '0'); // Get hours and pad with zero if needed
+    const minutes = date.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with zero if needed
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (0-indexed) and pad
+    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad
+    const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+
+    return `${hours}:${minutes} ${month}/${day}/${year}`;
+  };
+
   useEffect(() => {
     const getUsername = async () => {
       const user = await getUser();
@@ -30,12 +43,17 @@ export default function Dashboard() {
       }
 
       console.log('User exercises: ', data);
-      data.forEach((exercise) => {
-        console.log(exercise.name);
-      });
+      const exerciseList: ExerciseProps[] = data.map((exercise) => ({
+        name: exercise.name,
+        weight: exercise.weight,
+        reps: exercise.reps,
+        sets: exercise.sets,
+        date: exercise.updated_at,
+      }));
+      setExercises(exerciseList);
     };
-    getExercises();
     getUsername();
+    getExercises();
   }, []);
 
   const addExercsie = () => {
@@ -69,19 +87,16 @@ export default function Dashboard() {
         >
           Add Exercise
         </button>
-        <div className='flex h-full w-[90%] flex-col items-center justify-start'>
-          <div className='flex h-16 w-full flex-row items-center justify-evenly rounded-xl bg-transparent text-white hover:cursor-pointer hover:bg-zinc-900 focus:bg-zinc-900 active:bg-zinc-900'>
-            <i className='flex items-center justify-center rounded-full border-2 border-zinc-800 bg-zinc-950 p-2'>
-              <img src={Dumbbell2} alt='' className='h-8 w-8' />
-            </i>
-            <div className='flex h-full flex-col items-start justify-center'>
-              <div className='font-bold'>EXERCISE NAME</div>
-              <p className='text-sm'>12/25/2024</p>
-            </div>
-            <div className='flex h-full items-center justify-center font-bold'>
-              100 lbs
-            </div>
-          </div>
+        <div className='flex h-fit w-[90%] flex-col items-center justify-start'>
+          {exercises.map(({ name, weight, reps, sets, date }) => (
+            <ExerciseCard
+              name={name}
+              weight={weight}
+              reps={reps}
+              sets={sets}
+              date={formatDate(date)}
+            />
+          ))}
         </div>
       </div>
     </>
