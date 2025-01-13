@@ -86,10 +86,10 @@ const AddExerciseForm = () => {
             type='submit'
             className='mx-auto mt-4 flex items-center justify-center rounded-xl bg-mint px-2 py-1 text-black'
           >
-            Log In
+            Add
           </button>
           <p className='my-2 w-full text-center text-sm'>
-            <Link to='/signup'>Sign Up</Link>
+            <Link to='/dashboard'>Home</Link>
           </p>
         </form>
       </div>

@@ -2,6 +2,7 @@ import '../../index.css';
 import './dashboard.css';
 import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import Dumbbell2 from '../../assets/dumbbell2-icon.svg';
 import supabase from '../../lib/supabase';
 
@@ -9,6 +10,7 @@ export default function Dashboard() {
   const [userDisplay, setUserDisplay] = useState(null);
   const { getUser, signOut } = useAuth();
 
+  const navigate = useNavigate();
   useEffect(() => {
     const getUsername = async () => {
       const user = await getUser();
@@ -36,6 +38,10 @@ export default function Dashboard() {
     getUsername();
   }, []);
 
+  const addExercsie = () => {
+    navigate('/addExercise');
+  };
+
   return (
     <>
       <div className='flex h-full w-full flex-col items-center justify-start gap-4'>
@@ -51,15 +57,18 @@ export default function Dashboard() {
           </div>
           <div className='flex h-full w-3/5 flex-col items-center justify-center gap-4 rounded-xl font-bold'>
             Wed 17, August 2024
-            <button
-              onClick={signOut}
-              className='rounded-lg bg-mint p-2 text-sm'
-            >
-              Check-In
-            </button>
+            <button className='rounded-lg bg-mint p-2 text-sm'>Check-In</button>
           </div>
         </div>
-
+        <button onClick={signOut} className='rounded-lg bg-mint p-2 text-sm'>
+          Sign Out
+        </button>
+        <button
+          onClick={addExercsie}
+          className='rounded-lg bg-mint p-2 text-sm'
+        >
+          Add Exercise
+        </button>
         <div className='flex h-full w-[90%] flex-col items-center justify-start'>
           <div className='flex h-16 w-full flex-row items-center justify-evenly rounded-xl bg-transparent text-white hover:cursor-pointer hover:bg-zinc-900 focus:bg-zinc-900 active:bg-zinc-900'>
             <i className='flex items-center justify-center rounded-full border-2 border-zinc-800 bg-zinc-950 p-2'>
