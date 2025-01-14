@@ -5,12 +5,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import supabase from '../../lib/supabase';
 import ExerciseCard from '../../components/ExerciseCard';
+import ExercisePage from '../../components/ExercisePage';
 import { ExerciseProps } from '../../components/ExerciseCard';
 
 export default function Dashboard() {
   const [userDisplay, setUserDisplay] = useState(null);
   const { getUser, signOut } = useAuth();
   const [exercises, setExercises] = useState<ExerciseProps[]>([]);
+  const [overlayExercise, setOverlayExercise] = useState<ExerciseProps | null>(
+    null
+  );
+  const [overlayVisible, setOverlayVisible] = useState(false);
   const navigate = useNavigate();
 
   const formatDate = (dateString: string): string => {
@@ -44,6 +49,12 @@ export default function Dashboard() {
 
       console.log('User exercises: ', data);
       const exerciseList: ExerciseProps[] = data.map((exercise) => ({
+        onClick: () => {
+          goToExercise({
+            ...exercise,
+            date: exercise.updated_at,
+          });
+        },
         name: exercise.name,
         weight: exercise.weight,
         reps: exercise.reps,
@@ -58,6 +69,12 @@ export default function Dashboard() {
 
   const addExercsie = () => {
     navigate('/addExercise');
+  };
+
+  const goToExercise = (exercise: ExerciseProps) => {
+    console.log(exercise);
+    setOverlayExercise(exercise);
+    setOverlayVisible(true);
   };
 
   return (
@@ -87,9 +104,10 @@ export default function Dashboard() {
         >
           Add Exercise
         </button>
-        <div className='flex h-fit w-[90%] flex-col items-center justify-start'>
-          {exercises.map(({ name, weight, reps, sets, date }) => (
+        <div className='flex h-fit w-[90%] flex-col items-center justify-start gap-2'>
+          {exercises.map(({ onClick, name, weight, reps, sets, date }) => (
             <ExerciseCard
+              onClick={onClick}
               name={name}
               weight={weight}
               reps={reps}
@@ -99,6 +117,29 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      {overlayVisible && overlayExercise && (
+        <div className='overlay h-[300px] min-h-fit w-[200px] min-w-fit max-w-screen-sm rounded-xl border-2 border-zinc-800 bg-zinc-950'>
+          <div>
+            <ExercisePage
+              onClick={() => {}}
+              name={overlayExercise.name}
+              weight={overlayExercise.weight}
+              reps={overlayExercise.reps}
+              sets={overlayExercise.sets}
+              date={formatDate(overlayExercise.date)}
+            />
+            <button
+              onClick={() => {
+                setOverlayVisible(false);
+              }}
+              className='bg-mint text-center text-white'
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
