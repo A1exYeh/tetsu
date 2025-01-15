@@ -52,14 +52,14 @@ const LoginForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (username.length > 0) {
-      console.log(`Username: ${username}`);
-    }
-    if (password.length > 0) {
-      console.log(`Password: ${password}`);
-    }
-  }, [username, password]);
+  // useEffect(() => {
+  //   if (username.length > 0) {
+  //     console.log(`Username: ${username}`);
+  //   }
+  //   if (password.length > 0) {
+  //     console.log(`Password: ${password}`);
+  //   }
+  // }, [username, password]);
 
   const handleLogIn = async (e: FormEvent) => {
     e.preventDefault();
@@ -69,10 +69,10 @@ const LoginForm = () => {
       const signInAttempt = await signIn(username, password);
 
       if (signInAttempt.data.user) {
-        console.log('LOGGED IN SUCCESS', signInAttempt);
+        //console.log('LOGGED IN SUCCESS', signInAttempt);
         navigate('/dashboard');
       } else {
-        console.log('LOGGED IN FAIL', signInAttempt);
+        //console.log('LOGGED IN FAIL', signInAttempt);
 
         setUsername('');
         setPassword('');

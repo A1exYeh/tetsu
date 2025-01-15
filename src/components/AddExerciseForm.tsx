@@ -12,7 +12,7 @@ const AddExerciseForm = () => {
 
   const addExercise = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
 
     const { data, error } = await supabase
       .from('exercises')
@@ -29,7 +29,7 @@ const AddExerciseForm = () => {
     if (error) {
       console.error('Error adding exercise:', error);
     } else {
-      console.log('Exercise added successfully:', data);
+      //console.log('Exercise added successfully:', data);
       // Clear form
       setExerciseName('');
       setWeight('');

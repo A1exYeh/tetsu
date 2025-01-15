@@ -106,16 +106,18 @@ export default function Dashboard() {
         (exercise) => exercise.id === overlayExercise.id
       );
       if (updatedExercise) {
-        console.log('found', updatedExercise);
+        //console.log('found', updatedExercise);
         setOverlayExercise({
           ...updatedExercise,
           date: updatedExercise.updated_at,
           onclick: () => {},
         });
+        return;
       } else if (!updatedExercise) {
-        console.log('not found');
+        //console.log('not found');
         setOverlayVisible(false);
         setOverlayExercise(null);
+        return;
       }
     }
   };
