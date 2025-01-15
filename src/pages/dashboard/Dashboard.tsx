@@ -79,10 +79,12 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className='flex h-screen w-full flex-col items-center justify-start gap-4 overflow-hidden'>
+      <div className='flex h-full w-full flex-col items-center justify-start gap-4 overflow-hidden'>
         <h1 className='my-4 flex w-[90%] justify-start text-2xl font-bold text-white'>
           {userDisplay}
         </h1>
+
+        {/* Header box */}
         <div className='flex h-1/4 w-[90%] items-center justify-between rounded-xl border-2 border-zinc-800 bg-zinc-950 p-4 text-white'>
           <div className='flex h-full w-2/5 flex-col items-center justify-center gap-2 rounded-xl'>
             <div className='streakIcon flex h-16 w-16 items-center justify-center text-3xl font-extrabold text-zinc-900 drop-shadow-2xl'>
@@ -95,15 +97,20 @@ export default function Dashboard() {
             <button className='rounded-lg bg-mint p-2 text-sm'>Check-In</button>
           </div>
         </div>
-        <button onClick={signOut} className='rounded-lg bg-mint p-2 text-sm'>
-          Sign Out
-        </button>
-        <button
-          onClick={addExercsie}
-          className='rounded-lg bg-mint p-2 text-sm'
-        >
-          Add Exercise
-        </button>
+
+        {/* Sign out and add buttons */}
+        <div className='flex flex-row items-center justify-center gap-4'>
+          <button onClick={signOut} className='rounded-lg bg-mint p-2 text-sm'>
+            Sign Out
+          </button>
+          <button
+            onClick={addExercsie}
+            className='rounded-lg bg-mint p-2 text-sm'
+          >
+            Add Exercise
+          </button>
+        </div>
+
         <div className='hiddenScrollbar flex w-[90%] flex-col items-center justify-start gap-2 overflow-y-auto'>
           {exercises.map(({ onClick, name, weight, reps, sets, date }) => (
             <ExerciseCard
@@ -119,24 +126,28 @@ export default function Dashboard() {
       </div>
 
       {overlayVisible && overlayExercise && (
-        <div className='overlay h-[300px] min-h-fit w-[200px] min-w-fit max-w-screen-sm rounded-xl border-2 border-zinc-800 bg-zinc-950'>
-          <div>
-            <ExercisePage
-              onClick={() => {}}
-              name={overlayExercise.name}
-              weight={overlayExercise.weight}
-              reps={overlayExercise.reps}
-              sets={overlayExercise.sets}
-              date={formatDate(overlayExercise.date)}
-            />
-            <button
-              onClick={() => {
-                setOverlayVisible(false);
-              }}
-              className='bg-mint text-center text-white'
-            >
-              Close
-            </button>
+        <div className='overlay'>
+          <div className='flex h-[300px] min-h-fit w-[200px] min-w-fit max-w-screen-sm items-center justify-center rounded-xl border-2 border-zinc-800 bg-zinc-950'>
+            <div>
+              <ExercisePage
+                onClick={() => {}}
+                name={overlayExercise.name}
+                weight={overlayExercise.weight}
+                reps={overlayExercise.reps}
+                sets={overlayExercise.sets}
+                date={formatDate(overlayExercise.date)}
+              />
+              <div className='w-full text-center'>
+                <button
+                  onClick={() => {
+                    setOverlayVisible(false);
+                  }}
+                  className='mt-4 rounded-lg bg-mint p-1 text-center text-white'
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

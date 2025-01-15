@@ -40,7 +40,7 @@ const AddExerciseForm = () => {
 
   return (
     <>
-      <div className='flex h-fit w-[80%] min-w-fit max-w-[300px] flex-col items-center justify-center rounded-2xl bg-neutral-900 p-4 text-white'>
+      <div className='flex h-[500px] w-[80%] min-w-fit max-w-[300px] flex-col items-center justify-center rounded-2xl bg-neutral-900 p-4 text-white'>
         <img src={Logo} alt='' className='mb-8 h-16 w-16' />
         <form
           onSubmit={addExercise}
