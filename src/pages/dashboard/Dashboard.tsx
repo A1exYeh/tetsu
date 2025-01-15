@@ -50,7 +50,7 @@ export default function Dashboard() {
         return;
       }
 
-      console.log('User exercises: ', data);
+      //console.log('User exercises: ', data);
       const exerciseList: ExerciseProps[] = data.map((exercise) => ({
         onClick: () => {
           goToExercise({
@@ -79,6 +79,12 @@ export default function Dashboard() {
       .select('*')
       .eq('user_id', user.data.user.id);
 
+    if (error) {
+      console.log('Error Refreshing Exercises: ', error);
+      return;
+    }
+
+    // map data from supabase into exercise objects
     const exerciseList: ExerciseProps[] = data.map((exercise) => ({
       onClick: () => {
         goToExercise({
@@ -100,11 +106,16 @@ export default function Dashboard() {
         (exercise) => exercise.id === overlayExercise.id
       );
       if (updatedExercise) {
+        console.log('found', updatedExercise);
         setOverlayExercise({
           ...updatedExercise,
           date: updatedExercise.updated_at,
           onclick: () => {},
         });
+      } else if (!updatedExercise) {
+        console.log('not found');
+        setOverlayVisible(false);
+        setOverlayExercise(null);
       }
     }
   };
@@ -114,7 +125,7 @@ export default function Dashboard() {
   };
 
   const goToExercise = (exercise: ExerciseProps) => {
-    console.log(exercise);
+    //console.log(exercise);
     setOverlayExercise(exercise);
     setOverlayVisible(true);
   };

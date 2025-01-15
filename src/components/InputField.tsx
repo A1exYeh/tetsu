@@ -27,25 +27,23 @@ const InputField: React.FC<inputFieldProps> = ({
   const updateField = async () => {
     const user = await getUser();
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('exercises')
       .update({
         [field]:
           typeof value === 'number'
             ? parseFloat(inputValue.toString())
             : inputValue,
+        updated_at: new Date().toISOString(),
       })
       .eq('id', id)
       .eq('user_id', user.data.user.id)
       .select();
 
-    await supabase
-      .from('exercises')
-      .update({ updated_at: new Date().toISOString() })
-      .eq('id', id)
-      .eq('user_id', user.data.user.id)
-      .select();
-
+    if (error) {
+      console.log('Error updating input field exercise: ', error);
+      return;
+    }
     setIsEditing(false);
 
     if (error) {
@@ -82,7 +80,6 @@ const InputField: React.FC<inputFieldProps> = ({
                 width='16'
                 height='16'
                 fill='currentColor'
-                class='bi bi-arrow-return-left'
                 viewBox='0 0 16 16'
               >
                 <path
@@ -97,7 +94,6 @@ const InputField: React.FC<inputFieldProps> = ({
                 width='16'
                 height='16'
                 fill='currentColor'
-                class='bi bi-check-circle'
                 viewBox='0 0 16 16'
               >
                 <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16' />
