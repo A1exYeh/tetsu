@@ -27,19 +27,20 @@ const ExerciseCard: React.FC<ExerciseProps> = ({
         <i className='flex items-center justify-center rounded-full border-2 border-zinc-800 bg-zinc-950 p-2'>
           <img src={Dumbbell2} alt='' className='h-8 w-8' />
         </i>
+
         <div className='flex h-full flex-col items-start justify-center'>
           <div className='font-bold'>{name}</div>
-          <p className='text-sm'>{date}</p>
+          <p className='text-sm font-semibold text-zinc-600'>{date}</p>
         </div>
 
         <div className='flex h-full flex-grow-[1] flex-col items-end justify-center gap-1 text-right'>
-          <div className='flex h-fit items-center justify-center rounded-lg bg-green-800 p-1 text-sm font-bold text-mint'>
+          <div className='flex h-fit items-center justify-center rounded-lg border-2 border-mint bg-green-800 p-1 text-sm font-bold text-mint'>
             {weight} lbs
           </div>
-          <div className='flex h-fit items-center justify-center rounded-lg bg-orange-800 p-1 text-sm font-bold text-orange-300'>
+          <div className='flex h-fit items-center justify-center rounded-lg border-2 border-orange-300 bg-orange-800 p-1 text-sm font-bold text-orange-300'>
             {reps} reps
           </div>
-          <div className='flex h-fit items-center justify-center rounded-lg bg-blue-800 p-1 text-sm font-bold text-blue-300'>
+          <div className='flex h-fit items-center justify-center rounded-lg border-2 border-blue-300 bg-blue-800 p-1 text-sm font-bold text-blue-300'>
             {sets} sets
           </div>
         </div>

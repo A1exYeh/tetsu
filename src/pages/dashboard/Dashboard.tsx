@@ -20,7 +20,6 @@ export default function Dashboard() {
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    
     const options: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
@@ -29,7 +28,7 @@ export default function Dashboard() {
       day: '2-digit',
       year: '2-digit',
     };
-  
+
     return date.toLocaleString('en-US', options);
   };
 
@@ -115,7 +114,7 @@ export default function Dashboard() {
           </button>
         </div>
 
-        <div className='hiddenScrollbar flex w-[90%] flex-col items-center justify-start gap-2 overflow-y-auto'>
+        <div className='hiddenScrollbar flex w-[90%] flex-col items-center justify-start gap-4 overflow-y-auto'>
           {exercises.map(({ onClick, name, weight, reps, sets, date }) => (
             <ExerciseCard
               onClick={onClick}
@@ -131,7 +130,7 @@ export default function Dashboard() {
 
       {overlayVisible && overlayExercise && (
         <div className='overlay'>
-          <div className='flex h-[300px] min-h-fit w-[200px] min-w-fit max-w-screen-sm items-center justify-center rounded-xl border-2 border-zinc-800 bg-zinc-950'>
+          <div className='flex h-fit min-h-fit w-[300px] min-w-fit max-w-screen-sm items-center justify-center rounded-xl border-2 border-zinc-800 bg-zinc-950 p-4'>
             <div>
               <ExercisePage
                 onClick={() => {}}
