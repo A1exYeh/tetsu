@@ -42,7 +42,7 @@ export default function SessionProvider({ children }: { children: ReactNode }) {
         setLoading(false);
       } else if (session) {
         setSession(session);
-        console.log(session);
+        //console.log(session);
         setLoading(false);
       }
     });
