@@ -79,7 +79,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className='flex h-full w-full flex-col items-center justify-start gap-4'>
+      <div className='flex h-screen w-full flex-col items-center justify-start gap-4 overflow-hidden'>
         <h1 className='my-4 flex w-[90%] justify-start text-2xl font-bold text-white'>
           {userDisplay}
         </h1>
@@ -104,7 +104,7 @@ export default function Dashboard() {
         >
           Add Exercise
         </button>
-        <div className='flex h-fit w-[90%] flex-col items-center justify-start gap-2'>
+        <div className='hiddenScrollbar flex w-[90%] flex-col items-center justify-start gap-2 overflow-y-auto'>
           {exercises.map(({ onClick, name, weight, reps, sets, date }) => (
             <ExerciseCard
               onClick={onClick}

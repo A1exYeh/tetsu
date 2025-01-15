@@ -8,7 +8,7 @@ export default function PageLayout() {
         {/* <header className='flex w-full justify-center bg-red-500'>
           HEADER
         </header> */}
-        <main className='flex h-screen w-full flex-col items-center justify-center'>
+        <main className='flex h-full w-full flex-col items-center justify-center'>
           <Outlet />
         </main>
         {/* <footer className='flex w-full justify-center bg-red-500'>
