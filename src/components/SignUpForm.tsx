@@ -1,6 +1,5 @@
 import '../index.css';
 import { useState, FormEvent } from 'react';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 import { Link } from 'react-router';
@@ -52,26 +51,27 @@ const SignUpForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (username.length > 0) {
-      console.log(`Username: ${username}`);
-    }
-    if (password.length > 0) {
-      console.log(`Password: ${password}`);
-    }
-  }, [username, password]);
+  // useEffect(() => {
+  //   if (username.length > 0) {
+  //     console.log(`Username: ${username}`);
+  //   }
+  //   if (password.length > 0) {
+  //     console.log(`Password: ${password}`);
+  //   }
+  // }, [username, password]);
 
   const handleLogIn = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
 
     const signUpAttempt = await signUp(username, password);
 
     if (signUpAttempt.data.user) {
-      console.log('SIGN UP SUCCESS' + signUpAttempt);
+      //console.log('SIGN UP SUCCESS' + signUpAttempt);
       navigate('/dashboard');
     } else {
-      console.log('SIGN UP FAIL' + signUpAttempt);
+      //console.log('SIGN UP FAIL' + signUpAttempt);
+      alert(signUpAttempt.error?.message || 'Sign Up Failed');
       setUsername('');
       setPassword('');
     }
@@ -85,7 +85,7 @@ const SignUpForm = () => {
           onSubmit={handleLogIn}
           className='flex flex-col items-start justify-center gap-2'
         >
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='username'>Email</label>
           <input
             type='email'
             placeholder=''

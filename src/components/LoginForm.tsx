@@ -62,7 +62,7 @@ const LoginForm = () => {
 
   const handleLogIn = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
 
     try {
       const signInAttempt = await signIn(username, password);
@@ -91,7 +91,7 @@ const LoginForm = () => {
           onSubmit={handleLogIn}
           className='flex flex-col items-start justify-center gap-2'
         >
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='username'>Email</label>
           <input
             type='email'
             placeholder=''
