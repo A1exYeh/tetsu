@@ -2,12 +2,18 @@ import { ExerciseProps } from './ExerciseCard';
 import InputField from './InputField';
 import '../index.css';
 
-const ExercisePage: React.FC<ExerciseProps> = ({
+interface OnUpdateProp extends ExerciseProps {
+  onUpdate?: () => void;
+}
+
+const ExercisePage: React.FC<OnUpdateProp> = ({
   name,
   weight,
   reps,
   sets,
   date,
+  id,
+  onUpdate,
 }) => {
   return (
     <>
@@ -19,18 +25,24 @@ const ExercisePage: React.FC<ExerciseProps> = ({
           value={weight}
           textColor='mint'
           bgColor='green-800'
+          id={id}
+          onUpdate={onUpdate}
         />
         <InputField
           field='reps'
           value={reps}
           textColor='orange-300'
           bgColor='orange-800'
+          id={id}
+          onUpdate={onUpdate}
         />
         <InputField
           field='sets'
           value={sets}
           textColor='blue-300'
           bgColor='blue-800'
+          id={id}
+          onUpdate={onUpdate}
         />
         <div>{date}</div>
       </div>

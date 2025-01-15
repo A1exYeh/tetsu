@@ -63,12 +63,51 @@ export default function Dashboard() {
         reps: exercise.reps,
         sets: exercise.sets,
         date: exercise.updated_at,
+        id: exercise.id,
       }));
       setExercises(exerciseList);
     };
+
     getUsername();
     getExercises();
   }, []);
+
+  const refreshExercises = async () => {
+    const user = await getUser();
+    const { data, error } = await supabase
+      .from('exercises')
+      .select('*')
+      .eq('user_id', user.data.user.id);
+
+    const exerciseList: ExerciseProps[] = data.map((exercise) => ({
+      onClick: () => {
+        goToExercise({
+          ...exercise,
+          date: exercise.updated_at,
+        });
+      },
+      name: exercise.name,
+      weight: exercise.weight,
+      reps: exercise.reps,
+      sets: exercise.sets,
+      date: exercise.updated_at,
+      id: exercise.id,
+    }));
+    setExercises(exerciseList);
+
+    if (overlayVisible && overlayExercise) {
+      const updatedExercise = data?.find(
+        (exercise) => exercise.id === overlayExercise.id
+      );
+      if (updatedExercise) {
+        setOverlayExercise({
+          ...updatedExercise,
+          date: updatedExercise.updated_at,
+          onclick: () => {},
+        });
+      }
+    }
+  };
 
   const addExercsie = () => {
     navigate('/addExercise');
@@ -115,7 +154,7 @@ export default function Dashboard() {
         </div>
 
         <div className='hiddenScrollbar flex w-[90%] flex-col items-center justify-start gap-4 overflow-y-auto'>
-          {exercises.map(({ onClick, name, weight, reps, sets, date }) => (
+          {exercises.map(({ onClick, name, weight, reps, sets, date, id }) => (
             <ExerciseCard
               onClick={onClick}
               name={name}
@@ -123,6 +162,7 @@ export default function Dashboard() {
               reps={reps}
               sets={sets}
               date={formatDate(date)}
+              id={id}
             />
           ))}
         </div>
@@ -139,6 +179,8 @@ export default function Dashboard() {
                 reps={overlayExercise.reps}
                 sets={overlayExercise.sets}
                 date={formatDate(overlayExercise.date)}
+                id={overlayExercise.id}
+                onUpdate={refreshExercises}
               />
               <div className='w-full text-center'>
                 <button

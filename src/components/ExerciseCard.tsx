@@ -8,6 +8,7 @@ export interface ExerciseProps {
   reps: number;
   sets: number;
   date: string;
+  id: string;
 }
 
 const ExerciseCard: React.FC<ExerciseProps> = ({
