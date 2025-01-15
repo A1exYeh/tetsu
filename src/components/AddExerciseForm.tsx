@@ -14,7 +14,7 @@ const AddExerciseForm = () => {
     e.preventDefault();
     //console.log(e);
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('exercises')
       .insert([
         {

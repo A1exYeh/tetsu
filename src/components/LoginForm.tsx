@@ -1,6 +1,5 @@
 import '../index.css';
 import { useState, FormEvent } from 'react';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 import { Link } from 'react-router';
