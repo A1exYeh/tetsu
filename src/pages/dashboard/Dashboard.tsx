@@ -20,13 +20,17 @@ export default function Dashboard() {
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    const hours = date.getHours().toString().padStart(2, '0'); // Get hours and pad with zero if needed
-    const minutes = date.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with zero if needed
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (0-indexed) and pad
-    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad
-    const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
-
-    return `${hours}:${minutes} ${month}/${day}/${year}`;
+    
+    const options: Intl.DateTimeFormatOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true, // Enables 12-hour format with AM/PM
+      month: '2-digit',
+      day: '2-digit',
+      year: '2-digit',
+    };
+  
+    return date.toLocaleString('en-US', options);
   };
 
   useEffect(() => {
