@@ -53,11 +53,20 @@ export default function SessionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = async (email: string, password: string) => {
-    return supabase.auth.signUp({ email, password });
+    return supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: 'https://a1exyeh.github.io/tetsu/',
+      },
+    });
   };
 
   const signIn = async (email: string, password: string) => {
-    return supabase.auth.signInWithPassword({ email, password });
+    return supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
   };
 
   const signOut = async () => {
